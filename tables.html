@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hot Restaurant - Express</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron text-center">
+            <h1>Hot Restaurant</h1>
+            <h3>Current Reservations and Waiting List</h3>
+            <hr>
+            <a href="/reserve"><button class="btn btn-danger btn-lg"><span class="fa fa-eye"></span> Make a
+                    Reservations</button></a>
+            <a href="/"><button class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-home">Home</span>
+                </button></a>
+        </div>
+        <div class="row">
+
+            <div class="col-12">
+
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Current Table</strong></h3>
+                    </div>
+                    <div class="card-body">
+                        <ul id="table-section" class="table-group">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+
+            <div class="col-12">
+
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Waiting List</strong></h3>
+                    </div>
+                    <div class="card-body">
+                        <ul id="wait-section" class="wait-group">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <p>
+                    Control Panel
+                    <a href="" id="clear">Clear Tables</a>
+                    |
+                    <a href="/api/reservations"> API Table List</a>
+                    |
+                    <a href="/api/waitlisted"> API Wait List</a>
+
+                    <script type="text/javascript">
+
+                        $.get("/api/reservations", function (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                console.log(data[i]);
+                                var listGroupItem = $("<li class='list-group-item'>");
+
+                                listGroupItem.append($("<h2>").text((i + 1) + " | " + data[i].name));
+
+                                $("#table-section").append(listGroupItem);
+                            }
+                        });
+                        $.get("/api/waitlisted", function (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                console.log(data[i]);
+                                var listGroupItem = $("<li class='list-group-item'>");
+
+                                listGroupItem.append($("<h2>").text((i + 1) + " | " + data[i].name));
+
+                                $("#wait-section").append(listGroupItem);
+                            }
+                        });
+                    </script>
+
+</body>
+
+</html>
